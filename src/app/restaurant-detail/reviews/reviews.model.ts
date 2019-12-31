@@ -1,4 +1,4 @@
-export interface ReviewsModel {
+export interface Reviews {
   name: string;
   date: string;
   rating: number;

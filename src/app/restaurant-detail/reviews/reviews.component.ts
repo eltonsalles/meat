@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { RestaurantsService } from '../../restaurants/restaurants.service';
-import { ReviewsModel } from './reviews.model';
+import { Reviews } from './reviews.model';
 
 @Component({
   selector: 'mt-reviews',
@@ -10,7 +10,7 @@ import { ReviewsModel } from './reviews.model';
 })
 export class ReviewsComponent implements OnInit {
 
-  reviews: Observable<ReviewsModel[]>;
+  reviews: Observable<Reviews[]>;
 
   constructor(private restaurantsService: RestaurantsService, private route: ActivatedRoute) { }
 
