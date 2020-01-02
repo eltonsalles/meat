@@ -9,6 +9,8 @@ export class OrderSummaryComponent implements OnInit {
 
   @Input() orderId: string;
 
+  rated = false;
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
