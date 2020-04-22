@@ -9,7 +9,7 @@ export class OrderSummaryComponent implements OnInit {
 
   @Input() orderId: string;
 
-  rated = false;
+  rated: boolean;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -17,4 +17,7 @@ export class OrderSummaryComponent implements OnInit {
     this.orderId = this.route.snapshot.params['id'];
   }
 
+  rate() {
+    this.rated = true;
+  }
 }
