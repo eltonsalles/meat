@@ -5,7 +5,7 @@ import { RadioOption } from '../shared/radio/radio-option.model';
 import { CartItem } from '../restaurant-detail/shopping-cart/cart-item.model';
 import { Order, OrderItem } from './order.model';
 import { OrderService } from './order.service';
-import 'rxjs/add/operator/do';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'mt-order',
@@ -88,7 +88,9 @@ export class OrderComponent implements OnInit {
       .map((cartItem: CartItem) => new OrderItem(cartItem.quantity, cartItem.menuItem.id));
 
     this.orderService.checkOrder(order)
-      .do((orderId: string) => this.orderId = orderId)
+      .pipe(
+        tap((orderId: string) => this.orderId = orderId)
+      )
       .subscribe((orderId: string) => {
         this.router.navigate(['/order-summary', orderId]);
         this.orderService.clear();
