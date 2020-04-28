@@ -11,6 +11,8 @@ export class InputComponent implements OnInit, AfterContentInit {
 
   @Input() errorMessage: string;
 
+  @Input() showTip = true;
+
   input: any;
 
   @ContentChild(NgModel) model: NgModel;
