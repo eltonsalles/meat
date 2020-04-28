@@ -1,16 +1,35 @@
+import { ErrorHandler, Injectable, Injector, NgZone } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { NotificationService } from './shared/messages/notification.service';
+import { LoginService } from './security/login/login.service';
 
-export class ErrorHandler {
-  static handlerError(error: HttpErrorResponse | any) {
-    let errorMessage: string;
+@Injectable()
+export class AppErrorHandler extends ErrorHandler {
+  constructor(private ns: NotificationService, private injector: Injector, private zone: NgZone) {
+    super();
+  }
+
+  handleError(error: HttpErrorResponse | any) {
     if (error instanceof HttpErrorResponse) {
-      errorMessage = `Erro ${error.status} ao acessar a URL ${error.url} - ${error.statusText}`;
-    } else {
-      errorMessage = error.toString();
+      const message = error.error.message
+
+      this.zone.run(() => {
+        switch (error.status) {
+          case 401:
+            this.injector.get(LoginService).handleLogin()
+            break;
+
+          case 403:
+            this.ns.notify(message || 'Não autorizado.')
+            break;
+
+          case 404:
+            this.ns.notify(message || 'Recurso não encontrado.')
+            break;
+        }
+      })
     }
 
-    console.log(errorMessage);
-    return Observable.throw(errorMessage);
+    super.handleError(error);
   }
 }
