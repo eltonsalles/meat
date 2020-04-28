@@ -45,7 +45,7 @@ export class OrderService {
   checkOrder(order: Order): Observable<string> {
     let headers = new HttpHeaders()
     if (this.loginService.isLoggedIn()) {
-      headers.set('Authorization', `Bearer ${this.loginService.user.accessToken}`)
+      headers = headers.set('Authorization', `Bearer ${this.loginService.user.accessToken}`)
     }
 
     return this.http
