@@ -12,7 +12,7 @@ if (environment.production) {
 // platformBrowserDynamic().bootstrapModule(AppModule);
 
 const loadApp = () => {
-  platformBrowserDynamic().bootstrapModule(AppModule)
+  platformBrowserDynamic().bootstrapModule(AppModule, { preserveWhitespaces: true })
     .catch(err => console.log(err));
 }
 
